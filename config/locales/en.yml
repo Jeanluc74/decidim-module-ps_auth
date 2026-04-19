@@ -1,0 +1,6 @@
+---
+en:
+  decidim:
+    components:
+      ps_auth:
+        name: PsAuth
