@@ -1,0 +1,16 @@
+<div data-dialog-container>
+  <h3 class="h3" id="dialog-title-show-cfs" tabindex="-1" data-dialog-title>
+    <%= t("decidim.ps_auth.admin.settings.cfs_list.title", default: "Codici fiscali") %>
+  </h3>
+  <div id="dialog-desc-show-cfs" class="my-8 ps-auth-cfs-list__body">
+    <% if @fiscal_codes.present? %>
+      <p class="ps-auth-cfs-list__text">
+        <%= @fiscal_codes.join(", ") %>
+      </p>
+    <% else %>
+      <p class="ps-auth-cfs-list__placeholder">
+        <%= t("decidim.ps_auth.admin.settings.cfs_list.empty", default: "Nessun codice fiscale disponibile") %>
+      </p>
+    <% end %>
+  </div>
+</div>

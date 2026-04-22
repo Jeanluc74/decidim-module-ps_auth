@@ -1,1 +1,22 @@
 /* css for decidim_ps_auth */
+@import "tom-select/dist/css/tom-select";
+
+.ps-auth-cfs-list__body {
+  min-height: 3rem;
+}
+
+.ps-auth-cfs-list__text,
+.ps-auth-cfs-list__placeholder {
+  font-size: 0.9rem;
+}
+
+.ps-auth-cfs-list__text {
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.ps-auth-cfs-list__placeholder {
+  color: #767676;
+}
+

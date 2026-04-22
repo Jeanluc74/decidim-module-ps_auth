@@ -1,0 +1,32 @@
+<%= decidim_form_for form, url: url, multipart: true, html: { class: 'form form-defaults' } do |form| %>
+  <div class="form__wrapper">
+    <div class="card pt-4">
+      <div class="card-section">
+        <div class="row column">
+          <%= form.text_field :name, label: t('.name') %>
+        </div>
+        <div class="row column">
+          <%= label_tag :file, t("admin.new.file", scope: "decidim.ps_auth.setting") %>
+          <%= form.file_field :file %>
+        </div>
+
+        <div class="row column">
+          <%= form.select :authorizables,
+                          form.object.authorizable_options(@setting),
+                          form.object.selected_keys(@setting),
+                          multiple: true,
+                          class: "js-ps-auth-authorizables-select",
+                          label: t('.authorizables') %>
+
+        </div>
+        <div class="item__edit-sticky">
+          <div class="item__edit-sticky-container">
+            <%= submit_tag t("admin.new.submit", scope: "decidim.ps_auth.setting"), class: "button button__sm button__secondary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= append_javascript_pack_tag "decidim_ps_auth" %>

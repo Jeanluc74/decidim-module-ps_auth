@@ -1,0 +1,31 @@
+<% add_decidim_page_title(t("admin.edit.title", scope: "decidim.ps_auth.setting")) %>
+
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= t("admin.edit.title", scope: "decidim.ps_auth.setting") %>
+  </h1>
+</div>
+
+<div class="item__edit item__edit-1col">
+  <div class="item__edit-form">
+    <div class="form__wrapper">
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t("admin.new.title", scope: "decidim.ps_auth.setting") %>
+          </h2>
+        </div>
+        <div class="card-section">
+          <div class="row column">
+            <p><%= t("decidim.ps_auth.setting.admin.new.info") %></p>
+            <pre class="code-block"><%= t("decidim.ps_auth.setting.admin.new.example") %></pre>
+          </div>
+
+          <div class="row column">
+            <%= render partial: 'decidim/ps_auth/admin/settings/form', locals: { form: @form, url: setting_path(@setting) } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

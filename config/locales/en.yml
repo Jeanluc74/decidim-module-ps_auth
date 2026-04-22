@@ -1,6 +1,68 @@
 ---
 en:
   decidim:
+    ps_auth:
+      authorizables:
+        process: Participatory process
+        assembly: Assembly
+        initiative: Initiative
+      admin:
+        settings:
+          update:
+            success: The list was successfully updated.
+            error: An error occurred while updating the list.
+          destroy:
+            success: The list was successfully deleted.
+          form:
+            name: Name
+            authorizables: Resources to authorize
+          create:
+            error: An error occurred while importing.
+            success: The list was successfully created.
+      setting:
+        admin:
+          edit:
+            title: Edit CF list
+          new:
+            submit: Create
+            file: .csv file with fiscal code data
+            name: Name of the list
+            example: "HZRPKH54S13H469Y\nWBQJLF34D24K446K"
+            info: "Must be a file in CSV format with only one column with the fiscal code address:"
+            title: Upload a new CSV file
+
+          index:
+            title: Create Cf list
+    authorization_handlers:
+      ps_auth:
+        explanation: Authorization based on fiscal code verification for participatory processes, assemblies, and initiatives.
+        name: CF Authorization
+    admin:
+      actions:
+        show: CF list details
+        setting:
+          new: Create CF list
+      models:
+        setting:
+          fields:
+            created_at: Created at
+            name: Name
+            authorizables: Resources
+      filters:
+        authorizables_resource_type_eq:
+          label: Resource type
+          values:
+            'Decidim::ParticipatoryProcess': Participatory process
+            'Decidim::Assembly': Assembly
+            'Decidim::Initiative': Initiative
+          options:
+            decidim_participatory_process: Participatory process
+            decidim_assembly: Organization
+            decidim_inititives: User
+        search_placeholder:
+          name_cont: Search by name
+      titles:
+        settings: Create CF list
     components:
       ps_auth:
-        name: PsAuth
+        name: CF Authorization

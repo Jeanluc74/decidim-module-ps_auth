@@ -3,7 +3,7 @@
 require "decidim/ps_auth/admin"
 require "decidim/ps_auth/engine"
 require "decidim/ps_auth/admin_engine"
-require "decidim/ps_auth/component"
+require "decidim/ps_auth/workflow"
 
 module Decidim
   # This namespace holds the logic of the `PsAuth` component. This component

@@ -11,12 +11,12 @@ module Decidim
 
       routes do
         # Add admin engine routes here
-        # resources :ps_auth do
-        #   collection do
-        #     resources :exports, only: [:create]
-        #   end
-        # end
-        # root to: "ps_auth#index"
+        resources :settings do
+          member do
+            get :cfs_list
+          end
+        end
+        root to: "settings#index"
       end
 
       def load_seed

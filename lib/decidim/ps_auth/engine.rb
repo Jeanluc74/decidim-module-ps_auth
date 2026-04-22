@@ -11,11 +11,10 @@ module Decidim
 
       routes do
         # Add engine routes here
-        # resources :ps_auth
-        # root to: "ps_auth#index"
+        root to: "ps_auth#index"
       end
 
-      initializer "PsAuth.webpacker.assets_path" do
+      initializer "ps_auth.webpacker.assets_path" do
         Decidim.register_assets_path File.expand_path("app/packs", root)
       end
     end
