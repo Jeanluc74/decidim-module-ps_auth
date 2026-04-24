@@ -1,68 +1,90 @@
 ---
 en:
-  decidim:
-    ps_auth:
-      authorizables:
-        process: Participatory process
-        assembly: Assembly
-        initiative: Initiative
-      admin:
-        settings:
-          update:
-            success: The list was successfully updated.
-            error: An error occurred while updating the list.
-          destroy:
-            success: The list was successfully deleted.
-          form:
-            name: Name
-            authorizables: Resources to authorize
-          create:
-            error: An error occurred while importing.
-            success: The list was successfully created.
+  activemodel:
+    attributes:
       setting:
-        admin:
-          edit:
-            title: Edit CF list
-          new:
-            submit: Create
-            file: .csv file with fiscal code data
-            name: Name of the list
-            example: "HZRPKH54S13H469Y\nWBQJLF34D24K446K"
-            info: "Must be a file in CSV format with only one column with the fiscal code address:"
-            title: Upload a new CSV file
-
-          index:
-            title: Create Cf list
-    authorization_handlers:
-      ps_auth:
-        explanation: Authorization based on fiscal code verification for participatory processes, assemblies, and initiatives.
-        name: CF Authorization
+        active: Active
+        authorizables: Resources to authorize
+        decidim_organization: Organization
+        file: .csv file with fiscal code data
+        fiscal_codes: Fiscal codes
+        name: Name of the list
+  decidim:
     admin:
-      actions:
-        show: CF list details
-        setting:
-          new: Create CF list
-      models:
-        setting:
-          fields:
-            created_at: Created at
-            name: Name
-            authorizables: Resources
       filters:
         authorizables_resource_type_eq:
           label: Resource type
           values:
-            'Decidim::ParticipatoryProcess': Participatory process
             'Decidim::Assembly': Assembly
             'Decidim::Initiative': Initiative
-          options:
-            decidim_participatory_process: Participatory process
-            decidim_assembly: Organization
-            decidim_inititives: User
+            'Decidim::ParticipatoryProcess': Participatory process
         search_placeholder:
           name_cont: Search by name
-      titles:
-        settings: Create CF list
+    authorization_handlers:
+      admin:
+        ps_auth:
+          help:
+            - Admins upload a CSV with the CFs of the accepted participants.
+            - Only participants with an CF in any CSV file can get verified.
+      ps_auth:
+        explanation: Authorization based on fiscal code verification for participatory processes, assemblies, and initiatives.
+        name: CF Authorization
     components:
       ps_auth:
         name: CF Authorization
+    ps_auth:
+      admin:
+        actions:
+          active: Activate permissions
+          confirm_destroy: Deleting this list will permanently remove associated fiscal codes and destroy related authorizations.
+          deactive: Deactivate permissions
+          destroy: Confirm
+          edit: Edit CF list
+          show: CF list details
+        models:
+          setting:
+            fields:
+              authorizables: Resources
+              created_at: Created at
+              name: Name
+        settings:
+          edit:
+            title: Edit CF list
+            submit: Update
+          index:
+            settings: CF lists settings
+            title: CF lists
+          new:
+            submit: Create
+            title: Create CF list
+          cfs_list:
+            empty: No fiscal codes have been added yet.
+            loading: Loading fiscal codes list...
+            title: Fiscal codes
+          create:
+            error: An error occurred while importing.
+            success: The list was successfully created.
+          destroy:
+            success: The list was successfully deleted.
+          form:
+            file: .csv file with fiscal code data
+            authorizables: Resources to authorize
+            example: "HZRPKH54S13H469Y\nWBQJLF34D24K446K"
+            info: "Must be a file in CSV format with only one column with the fiscal code address:"
+            name: Name of the list
+          update:
+            error: An error occurred while updating the list.
+            success: The list was successfully updated.
+      authorizables:
+        assembly: Assembly
+        initiative: Initiative
+        process: Participatory process
+      authorizations:
+        new:
+          error: You are not authorized to perform this operation.
+          success: The authorization was successfully created.
+    verifications:
+      authorizations:
+        first_login:
+          actions:
+            ps_auth: Verify against the fiscal code registry

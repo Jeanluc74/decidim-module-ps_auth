@@ -5,6 +5,10 @@ module Decidim::PsAuth
 
     has_many :authorizables, class_name: "Decidim::PsAuth::Authorizable", dependent: :destroy
 
+    scope :active, -> { where(active: true) }
+    scope :active_permissions, -> (o, ps) { active.includes(:authorizables).where(organization: o, authorizables: { resource: ps }) }
+    scope :for_user, -> (cf) { where("? = ANY(fiscal_codes)", cf) }
+
     def resources
       authorizables.includes(:resource).map(&:resource).compact
     end
@@ -13,8 +17,14 @@ module Decidim::PsAuth
       %w[id name created_at updated_at decidim_organization_id]
     end
 
-    def self.ransackable_associations(_auth_object = nil)
-      %w[authorizables]
+
+    def self.search_cf(organization, cf, resource)
+      query = includes(:authorizables)
+                .where(organization: organization)
+                .where("? = ANY(fiscal_codes)", cf)
+
+      query = query.where(resource: resource) if resource.present?
+      query
     end
   end
 end

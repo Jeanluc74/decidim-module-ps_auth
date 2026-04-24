@@ -8,7 +8,7 @@ module Decidim
 
         layout "decidim/admin/users"
 
-        before_action :load_setting, only: [:show, :edit, :update, :destroy, :cfs_list]
+        before_action :load_setting, only: [:show, :edit, :update, :destroy, :cfs_list, :active, :deactive]
 
         # todo: verificare
         # include Decidim::Admin::WorkflowsBreadcrumb
@@ -59,6 +59,20 @@ module Decidim
               render :edit
             end
           end
+        end
+
+        def active
+          enforce_permission_to :update, :authorization
+          @setting.update(active: true)
+          flash[:notice] = t("decidim.ps_auth.admin.settings.update.success")
+          redirect_to settings_path
+        end
+
+        def deactive
+          enforce_permission_to :update, :authorization
+          @setting.update(active: false)
+          flash[:notice] = t("decidim.ps_auth.admin.settings.update.success")
+          redirect_to settings_path
         end
 
         def destroy

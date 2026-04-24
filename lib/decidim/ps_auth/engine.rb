@@ -2,6 +2,7 @@
 
 require "rails"
 require "decidim/core"
+require "decidim/ps_auth/action_authorizer_overrides"
 
 module Decidim
   module PsAuth
@@ -11,11 +12,17 @@ module Decidim
 
       routes do
         # Add engine routes here
-        root to: "ps_auth#index"
+        root to: "authorizations#new"
       end
 
       initializer "ps_auth.webpacker.assets_path" do
         Decidim.register_assets_path File.expand_path("app/packs", root)
+      end
+
+      initializer "decidim_my_module.action_authorizer_patch" do
+        config.to_prepare do
+          Decidim::ActionAuthorizer.prepend(Decidim::PsAuth::ActionAuthorizerOverrides)
+        end
       end
     end
   end

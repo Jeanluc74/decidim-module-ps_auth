@@ -14,6 +14,8 @@ module Decidim
         resources :settings do
           member do
             get :cfs_list
+            get :active
+            get :deactive
           end
         end
         root to: "settings#index"
