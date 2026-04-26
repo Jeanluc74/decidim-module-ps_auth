@@ -14,7 +14,8 @@
       <thead>
       <tr>
         <th><%= sort_link(query, :name, t("models.setting.fields.name", scope: "decidim.ps_auth.admin"), default_order: :desc) %></th>
-        <th><%= t("models.setting.fields.authorizables", scope: "decidim.ps_auth.admin") %></th>
+        <th><%= t("models.setting.fields.resource", scope: "decidim.ps_auth.admin") %></th>
+        <th><%= t("models.setting.fields.count", scope: "decidim.ps_auth.admin") %></th>
         <th><%= sort_link(query, :created_at, t("models.setting.fields.created_at", scope: "decidim.ps_auth.admin"), default_order: :desc) %></th>
         <th></th>
       </tr>
@@ -23,7 +24,8 @@
       <% @settings.each do |setting| %>
         <tr data-setting-id="<%= setting.id %>">
           <td><%= setting.name %></td>
-          <td><%= render_authorizables(setting) %></td>
+          <td><%= render_resource(setting) %></td>
+          <td><%= setting.fiscal_codes.count %></td>
           <td><%= l setting.created_at, format: :short %></td>
           <td class="table-list__actions">
             <% if allowed_to? :show, :authorization, setting: setting  %>

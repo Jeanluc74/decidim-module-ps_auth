@@ -23,9 +23,11 @@ module Decidim
             setting = find_or_initialize_setting
             setting.name = @form.name
             setting.fiscal_codes = @form.fiscal_codes_from_file
+            resource_type, resource_id = @form.resource.to_s.split("-", 2)
+            setting.resource_type = resource_type
+            setting.resource_id = resource_id
             setting.save!
 
-            update_authorizables!(setting)
           end
 
           broadcast(:ok)
@@ -45,20 +47,6 @@ module Decidim
           end
         end
 
-        def update_authorizables!(setting)
-          values = Array(@form.authorizables).reject(&:blank?)
-
-          records = values.filter_map do |value|
-            type, id = value.to_s.split("-", 2)
-            next if type.blank? || id.blank?
-
-            { resource_type: type, resource_id: id }
-          end.uniq
-
-          # TODO: cambiare approccio
-          setting.authorizables.destroy_all
-          records.each { |attrs| setting.authorizables.create!(attrs) }
-        end
       end
     end
   end

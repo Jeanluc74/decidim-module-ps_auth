@@ -1,21 +1,18 @@
 module Decidim::PsAuth::Admin::SettingsHelper
-  def render_authorizables(setting)
-    setting.authorizables.map do |auth|
-      resource = auth.resource
-      next unless resource
+  def render_resource(setting)
+    resource = setting.resource
 
-      label = case auth.resource_type
-              when "Decidim::ParticipatoryProcess"
-                t("decidim.ps_auth.authorizables.process")
-              when "Decidim::Assembly"
-                t("decidim.ps_auth.authorizables.assembly")
-              when "Decidim::Initiative"
-                t("decidim.ps_auth.authorizables.initiative")
-              else
-                auth.resource_type
-              end
+    label = case setting.resource_type
+            when "Decidim::ParticipatoryProcess"
+              t("decidim.ps_auth.admin.settings.index.process")
+            when "Decidim::Assembly"
+              t("decidim.ps_auth.admin.settings.index.assembly")
+            when "Decidim::Initiative"
+              t("decidim.ps_auth.admin.settings.index.initiative")
+            else
+              setting.resource_type
+            end
 
-      "#{label}: #{translated_attribute(resource.title)}"
-    end.compact.join("<br>").html_safe
+    "#{label}: #{translated_attribute(resource.title)}"
   end
 end

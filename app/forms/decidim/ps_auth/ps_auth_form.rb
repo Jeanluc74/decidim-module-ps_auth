@@ -4,6 +4,9 @@ module Decidim
   module PsAuth
       class PsAuthForm < AuthorizationHandler
         validate :authorized
+        validate :cf_presence
+
+        delegate :active_settings, :current_cf, to: :context
 
         def authorized?
           true if user_present?
@@ -13,7 +16,11 @@ module Decidim
 
         def authorized
           return if user_present?
+          errors.add(:email, I18n.t("decidim.ps_auth.authorizations.new.error"))
+        end
 
+        def cf_presence
+          return if current_cf.present?
           errors.add(:email, I18n.t("decidim.ps_auth.authorizations.new.error"))
         end
 
@@ -22,7 +29,13 @@ module Decidim
         end
 
         def user_present?
-          Setting.search_cf(organization, Decidim::PsAuth.call_cf_lookup(organization, user&.id), nil).present?
+          active_settings.present?
+        end
+
+        def unique_id
+          Digest::MD5.hexdigest(
+            "#{handler_name}-#{current_cf}-#{Rails.application.secrets.secret_key_base}"
+          )
         end
       end
     end

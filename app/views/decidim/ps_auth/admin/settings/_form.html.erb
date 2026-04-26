@@ -11,12 +11,9 @@
         </div>
 
         <div class="row column">
-          <%= form.select :authorizables,
+          <%= form.select :resource,
                           form.object.authorizable_options(@setting),
-                          form.object.selected_keys(@setting), #.merge(label: t('.authorizables')),
-                          multiple: true,
-                          class: "js-ps-auth-authorizables-select"
-                           %>
+                          form.object.authorizable_selected %>
 
         </div>
         <div class="item__edit-sticky">

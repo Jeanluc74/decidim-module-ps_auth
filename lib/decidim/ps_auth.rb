@@ -14,7 +14,7 @@ module Decidim
     config_accessor :cf_lookup
 
     def self.call_cf_lookup(organization, user_id)
-      config.cf_lookup&.call(organization, user_id)
+      config.cf_lookup&.call(organization, user_id)&.upcase
     end
   end
 end

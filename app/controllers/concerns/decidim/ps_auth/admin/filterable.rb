@@ -14,8 +14,7 @@ module Decidim
           private
 
           def base_query
-            # Needed for filtering by associated authorizables.resource_type.
-            collection.left_joins(:authorizables).distinct
+            collection
           end
 
           def search_field_predicate
@@ -23,12 +22,12 @@ module Decidim
           end
 
           def filters
-            [:authorizables_resource_type_eq]
+            [:resource_type_eq]
           end
 
           def filters_with_values
             {
-              authorizables_resource_type_eq: [
+              resource_type_eq: [
                 "Decidim::ParticipatoryProcess",
                 "Decidim::Assembly",
                 "Decidim::Initiative"

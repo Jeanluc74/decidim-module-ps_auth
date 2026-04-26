@@ -10,9 +10,8 @@ module Decidim
 
         before_action :load_setting, only: [:show, :edit, :update, :destroy, :cfs_list, :active, :deactive]
 
-        # todo: verificare
-        # include Decidim::Admin::WorkflowsBreadcrumb
-        #add_breadcrumb_item_from_menu :workflows_menu
+        include Decidim::Admin::WorkflowsBreadcrumb
+        add_breadcrumb_item_from_menu :workflows_menu
 
         def index
           enforce_permission_to :index, :authorization
@@ -106,7 +105,7 @@ module Decidim
         end
 
         def collection
-          @collection ||= Decidim::PsAuth::Setting.where(organization: current_organization)
+          @collection ||= Decidim::PsAuth::Setting.where(organization: current_organization).order(created_at: :desc)
         end
 
       end

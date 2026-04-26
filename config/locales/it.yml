@@ -1,0 +1,91 @@
+---
+it:
+  activemodel:
+    attributes:
+      setting:
+        active: Attivo
+        resource: Risorsa da autorizzare
+        decidim_organization: Organizzazione
+        file: File .csv con i dati dei codici fiscali
+        fiscal_codes: Codici fiscali
+        name: Nome dell'elenco
+  decidim:
+    admin:
+      filters:
+        resource_type_eq:
+          label: Tipo di risorsa
+          values:
+            'Decidim::Assembly': Assemblea
+            'Decidim::Initiative': Iniziativa
+            'Decidim::ParticipatoryProcess': Processo partecipativo
+        search_placeholder:
+          name_cont: Cerca per nome
+    authorization_handlers:
+      admin:
+        ps_auth:
+          help:
+            - Gli amministratori caricano un CSV con i CF dei partecipanti accettati.
+            - Solo i partecipanti con un CF in uno qualsiasi dei file CSV possono essere verificati.
+      ps_auth:
+        explanation: Autorizzazione basata sulla verifica del codice fiscale per processi partecipativi, assemblee e iniziative.
+        name: Autorizzazione CF
+    components:
+      ps_auth:
+        name: Autorizzazione CF
+    ps_auth:
+      admin:
+        actions:
+          active: Attiva autorizzazioni
+          confirm_destroy: "L'eliminazione di questo elenco rimuoverà in modo permanente i codici fiscali associati e distruggerà le autorizzazioni correlate.\nNB: Verranno revocate le autorizzazioni agli utenti che sono esclusivamente inclusi in questo elenco.\n Vuoi confermare la cancellazione?"
+          deactive: Disattiva autorizzazioni
+          destroy: Conferma
+          edit: Modifica elenco CF
+          show: Dettagli elenco CF
+        models:
+          setting:
+            fields:
+              resource: Risorsa
+              count: N. codici fiscali
+              created_at: Creato il
+              name: Nome
+        settings:
+          cfs_list:
+            empty: Nessun codice fiscale è stato aggiunto ancora.
+            loading: Caricamento elenco codici fiscali...
+            title: Codici fiscali
+          create:
+            error: Si è verificato un errore durante l'importazione.
+            success: L'elenco è stato creato con successo.
+          destroy:
+            success: L'elenco è stato eliminato con successo.
+          edit:
+            submit: Aggiorna
+            title: Modifica elenco CF
+          form:
+            file: File .csv con i dati dei codici fiscali
+            resource: Risorsa da autorizzare
+            example: "HZRPKH54S13H469Y\nWBQJLF34D24K446K"
+            info: "Deve essere un file in formato CSV con una sola colonna contenente l'indirizzo del codice fiscale:"
+            name: Nome dell'elenco
+          index:
+            assembly: Assemblea
+            initiative: Iniziativa
+            process: Processo partecipativo
+            settings: Impostazioni elenchi CF
+            title: Elenchi CF
+          new:
+            submit: Crea
+            title: Crea elenco CF
+          update:
+            error: Si è verificato un errore durante l'aggiornamento dell'elenco.
+            success: L'elenco è stato aggiornato con successo.
+      authorizations:
+        new:
+          error: Non sei autorizzato a eseguire questa operazione.
+          success: L'autorizzazione è stata creata con successo.
+    verifications:
+      authorizations:
+        first_login:
+          actions:
+            ps_auth: Verifica tramite registro codice fiscale
+

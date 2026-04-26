@@ -4,7 +4,7 @@ en:
     attributes:
       setting:
         active: Active
-        authorizables: Resources to authorize
+        resource: Resource to authorize
         decidim_organization: Organization
         file: .csv file with fiscal code data
         fiscal_codes: Fiscal codes
@@ -12,7 +12,7 @@ en:
   decidim:
     admin:
       filters:
-        authorizables_resource_type_eq:
+        resource_type_eq:
           label: Resource type
           values:
             'Decidim::Assembly': Assembly
@@ -36,7 +36,10 @@ en:
       admin:
         actions:
           active: Activate permissions
-          confirm_destroy: Deleting this list will permanently remove associated fiscal codes and destroy related authorizations.
+          confirm_destroy: |-
+            Deleting this list will permanently remove associated fiscal codes and destroy related authorizations.
+            Note: authorizations will be revoked for users who are included exclusively in this list.
+            Do you want to confirm the deletion?
           deactive: Deactivate permissions
           destroy: Confirm
           edit: Edit CF list
@@ -44,7 +47,8 @@ en:
         models:
           setting:
             fields:
-              authorizables: Resources
+              resource: Resource
+              count: No. of fiscal codes
               created_at: Created at
               name: Name
         settings:
@@ -54,6 +58,9 @@ en:
           index:
             settings: CF lists settings
             title: CF lists
+            assembly: Assembly
+            initiative: Initiative
+            process: Participatory process
           new:
             submit: Create
             title: Create CF list
@@ -68,17 +75,13 @@ en:
             success: The list was successfully deleted.
           form:
             file: .csv file with fiscal code data
-            authorizables: Resources to authorize
+            resource: Resource to authorize
             example: "HZRPKH54S13H469Y\nWBQJLF34D24K446K"
             info: "Must be a file in CSV format with only one column with the fiscal code address:"
             name: Name of the list
           update:
             error: An error occurred while updating the list.
             success: The list was successfully updated.
-      authorizables:
-        assembly: Assembly
-        initiative: Initiative
-        process: Participatory process
       authorizations:
         new:
           error: You are not authorized to perform this operation.
