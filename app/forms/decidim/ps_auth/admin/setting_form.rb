@@ -32,11 +32,14 @@ module Decidim
             ]
           end
 
-          initiatives = Decidim::Initiative.where(organization: current_organization).map do |i|
-            [
-              "#{I18n.t('decidim.ps_auth.admin.settings.index.initiative')}: #{translated_attribute(i.title)}",
-              "Decidim::Initiative-#{i.id}"
-            ]
+          initiatives = []
+          if (defined?(Decidim::Initiative))
+            initiatives = Decidim::Initiative.where(organization: current_organization).map do |i|
+              [
+                "#{I18n.t('decidim.ps_auth.admin.settings.index.initiative')}: #{translated_attribute(i.title)}",
+                "Decidim::Initiative-#{i.id}"
+              ]
+            end
           end
 
           processes + assemblies + initiatives
