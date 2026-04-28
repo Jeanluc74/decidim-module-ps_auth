@@ -19,6 +19,10 @@ module Decidim
         [status_code, data]
       end
 
+      def redirect_params
+        { component_id: component&.id }
+      end
+
     end
   end
 end

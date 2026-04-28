@@ -33,7 +33,6 @@ module Decidim
           b = permission
                 &.fetch("authorization_handlers", {})
                 &.slice(*available_authorizations)
-                &.merge(my_permissions)
         end
 
         b.blank? ? my_permissions : b.merge(my_permissions)

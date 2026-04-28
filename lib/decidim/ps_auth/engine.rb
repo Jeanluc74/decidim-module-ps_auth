@@ -25,9 +25,6 @@ module Decidim
         end
       end
 
-      initializer "ps_auth.add_cells_view_paths" do
-        Cell::ViewModel.view_paths.insert(1, File.expand_path("#{Decidim::PsAuth::Engine.root}/app/cells"))
-      end
     end
   end
 end
