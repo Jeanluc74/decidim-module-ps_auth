@@ -4,7 +4,7 @@ module Decidim
   # This holds the decidim-meetings version.
   module PsAuth
     def self.version
-      "0.29.0"
+      "0.30.0"
     end
   end
 end

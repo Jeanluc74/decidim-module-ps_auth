@@ -3,6 +3,8 @@
 require "rails"
 require "decidim/core"
 require "decidim/ps_auth/action_authorizer_overrides"
+require "decidim/ps_auth/resource_permissions_overrides"
+require "decidim/ps_auth/onboarding_manager_overrides"
 
 module Decidim
   module PsAuth
@@ -11,7 +13,6 @@ module Decidim
       isolate_namespace Decidim::PsAuth
 
       routes do
-        # Add engine routes here
         root to: "authorizations#new"
       end
 
@@ -19,9 +20,11 @@ module Decidim
         Decidim.register_assets_path File.expand_path("app/packs", root)
       end
 
-      initializer "decidim_my_module.action_authorizer_patch" do
+      initializer "ps_auth.action_authorizer_patch" do
         config.to_prepare do
           Decidim::ActionAuthorizer.prepend(Decidim::PsAuth::ActionAuthorizerOverrides)
+          Decidim::Admin::ResourcePermissionsController.include(Decidim::PsAuth::ResourcePermissionsOverrides)
+          Decidim::OnboardingManager.include(Decidim::PsAuth::OnboardingManagerOverrides)
         end
       end
 

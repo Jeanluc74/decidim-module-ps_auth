@@ -23,7 +23,7 @@ module Decidim
           on(:invalid) do
             flash[:alert] = t("authorizations.new.error", scope: "decidim.ps_auth")
           end
-          redirect_to (redirect_url || decidim_verifications.authorizations_path)
+          redirect_to decidim_verifications.authorizations_path
         end
       end
 
