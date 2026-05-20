@@ -55,7 +55,7 @@ it:
             title: Codici fiscali
           create:
             error: Si è verificato un errore durante l'importazione.
-            success: L'elenco è stato creato con successo.
+            success: L'elenco è stato creato con successo (%{errors} errori).
           destroy:
             success: L'elenco è stato eliminato con successo.
           edit:
@@ -78,7 +78,7 @@ it:
             title: Crea elenco CF
           update:
             error: Si è verificato un errore durante l'aggiornamento dell'elenco.
-            success: L'elenco è stato aggiornato con successo.
+            success: L'elenco è stato aggiornato con successo (%{errors} errore).
       authorizations:
         new:
           error: Non sei autorizzato a eseguire questa operazione.

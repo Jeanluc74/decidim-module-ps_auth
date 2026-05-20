@@ -70,7 +70,7 @@ en:
             title: Fiscal codes
           create:
             error: An error occurred while importing.
-            success: The list was successfully created.
+            success: The list was successfully created (%{errors} errors).
           destroy:
             success: The list was successfully deleted.
           form:
@@ -81,7 +81,7 @@ en:
             name: Name of the list
           update:
             error: An error occurred while updating the list.
-            success: The list was successfully updated.
+            success: The list was successfully updated (%{errors} errors).
       authorizations:
         new:
           error: You are not authorized to perform this operation.

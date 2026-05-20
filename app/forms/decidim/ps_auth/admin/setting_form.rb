@@ -7,6 +7,11 @@ module Decidim
         include Decidim::TranslationsHelper
         include ActiveModel::Validations::Callbacks
 
+        FORMAT_NO_CHECK_DIGIT = /([A-Z]{6})([\dL-V]{2})([ABCDEHLMPRST])([\dL-V]{2})([A-Z][\dL-V]{3})/
+        FORMAT = /#{FORMAT_NO_CHECK_DIGIT}([A-Z])/
+
+        attr_reader :cf_errors, :cf_values
+
         before_validation :normalize_fiscal_codes_from_file
 
         attribute :file
@@ -72,11 +77,22 @@ module Decidim
         def normalize_fiscal_codes_from_file
           return unless file.respond_to?(:path) && file.path.present?
 
-          self.fiscal_codes = CSV.read(file.path)
-                                 .flatten
-                                 .map { |value| value.to_s.upcase.strip }
-                                 .reject(&:blank?)
-                                 .uniq
+          @cf_values = [] if @cf_values.nil?
+          @cf_errors = [] if @cf_errors.nil?
+
+          CSV.read(file.path)
+             .flatten
+             .map { |value| value.to_s.upcase.strip }
+             .reject(&:blank?)
+             .uniq.each do |code|
+            if code.match(FORMAT)
+              cf_values << code
+            else
+              cf_errors << code
+            end
+          end
+
+          self.fiscal_codes = cf_values
         rescue CSV::MalformedCSVError
           errors.add(:file, :malformed)
           self.fiscal_codes = []

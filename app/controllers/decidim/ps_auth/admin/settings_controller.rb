@@ -28,7 +28,7 @@ module Decidim
           @form = form(SettingForm).from_params(params)
           SaveSetting.call(@form, current_organization) do
             on(:ok) do
-              flash[:notice] = t(".success")
+              flash[:notice] = t(".success", count: @form.cf_values.count, errors: @form.cf_errors.count)
               redirect_to settings_path
             end
 
@@ -49,7 +49,7 @@ module Decidim
           @form = form(SettingForm).from_params(params)
           SaveSetting.call(@form, current_organization) do
             on(:ok) do
-              flash[:notice] = t(".success")
+              flash[:notice] = t(".success", count: @form.cf_values.count, errors: @form.cf_errors.count)
               redirect_to settings_path
             end
 
