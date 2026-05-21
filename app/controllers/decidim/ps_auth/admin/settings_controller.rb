@@ -63,14 +63,14 @@ module Decidim
         def active
           enforce_permission_to :update, :authorization
           @setting.update(active: true)
-          flash[:notice] = t("decidim.ps_auth.admin.settings.update.success")
+          flash[:notice] = t("decidim.ps_auth.admin.settings.active.success")
           redirect_to settings_path
         end
 
         def deactive
           enforce_permission_to :update, :authorization
           @setting.update(active: false)
-          flash[:notice] = t("decidim.ps_auth.admin.settings.update.success")
+          flash[:notice] = t("decidim.ps_auth.admin.settings.active.success")
           redirect_to settings_path
         end
 

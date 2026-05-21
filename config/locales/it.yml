@@ -79,6 +79,8 @@ it:
           update:
             error: Si è verificato un errore durante l'aggiornamento dell'elenco.
             success: L'elenco è stato aggiornato con successo (%{errors} errore).
+          active:
+            success: L'elenco è stato aggiornato con successo.
       authorizations:
         new:
           error: Non sei autorizzato a eseguire questa operazione.

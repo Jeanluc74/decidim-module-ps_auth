@@ -82,6 +82,8 @@ en:
           update:
             error: An error occurred while updating the list.
             success: The list was successfully updated (%{errors} errors).
+          active:
+            success: The list was successfully updated.
       authorizations:
         new:
           error: You are not authorized to perform this operation.
